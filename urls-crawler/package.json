@@ -1,0 +1,33 @@
+{
+  "name": "urls-crawler",
+  "version": "1.0.6",
+  "description": "Crawl all urls of a domain",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shivnarayan123/npm-packages.git"
+  },
+  "keywords": [
+    "crawler",
+    "urls",
+    "domain",
+    "website"
+  ],
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.5"
+  },
+  "author": "shivnarayan123",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shivnarayan123/npm-packages/issues"
+  },
+  "homepage": "https://github.com/shivnarayan123/npm-packages#readme",
+  "devDependencies": {
+    "chai": "^4.2.0"
+  }
+}

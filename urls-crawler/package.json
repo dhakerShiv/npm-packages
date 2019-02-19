@@ -1,6 +1,6 @@
 {
   "name": "urls-crawler",
-  "version": "1.0.6",
+  "version": "1.0.9",
   "description": "Crawl all urls of a domain",
   "main": "index.js",
   "scripts": {

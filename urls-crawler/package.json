@@ -1,6 +1,6 @@
 {
   "name": "urls-crawler",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Crawl all urls of a domain",
   "main": "index.js",
   "scripts": {
@@ -19,7 +19,8 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
     "request": "^2.88.0",
-    "request-promise-native": "^1.0.5"
+    "request-promise-native": "^1.0.5",
+    "write-json-file": "^3.1.0"
   },
   "author": "shivnarayan123",
   "license": "ISC",

@@ -1,5 +1,6 @@
 const request       = require('request-promise-native')
 const cheerio       = require('cheerio')
+const writeJsonFile = require('write-json-file')
 const excludeUrls   = ["#", "javascript:;", "/", "javascript:void(0)", "javascript:void(0);", "", undefined]
 const AllUrls       = {}
 const urlsArr       = []
@@ -13,12 +14,17 @@ let websiteUrl
 let webPageUrl
 let htmlContent
 let customRegex
+let urlToStart
+let testUrlPath
 
 class Urls {
-  constructor (domain, protocol, regex) {
-    domainName    = domain
-    websiteUrl    = protocol + "://" + domain
-    customRegex   = regex
+  constructor (startingUrl, regex) {
+    const urlInParts = startingUrl.split("/")
+    domainName       = urlInParts[2].replace(/^www./, "")
+    websiteUrl       = urlInParts[0] + "//" + urlInParts[2]
+    customRegex      = regex
+    urlToStart       = startingUrl
+    testUrlPath      = domainName + "/" + urlInParts.slice(3).join('/')
   }
 
   async getAllUrls () {  
@@ -26,7 +32,7 @@ class Urls {
 
     print(`\rStarting process...`)
 
-    urlsArr.push(websiteUrl)
+    urlsArr.push(urlToStart)
     let total = 0
 
     while (urlsArr.length) {
@@ -49,13 +55,15 @@ class Urls {
         }
       }
     }
-
     // Remove dead urls from all unique urls
     uniqueUrlsArr = uniqueUrlsArr.filter( url => !deadUrls.includes(url) )
       
     AllUrls.active = uniqueUrlsArr
     AllUrls.dead   = deadUrls
     print(`\rActive urls: ${uniqueUrlsArr.length}, Dead urls: ${deadUrls.length}`)
+    
+    await writeJsonFile('urls.json', AllUrls);
+
     return AllUrls
   }
 
@@ -86,7 +94,7 @@ class Urls {
         if (customRegex)
           regexTest = (new RegExp(customRegex, 'gi')).test(tempLink)
 
-        if ((new RegExp(domainName, 'gi')).test(tempLink) && regexTest)
+        if ((new RegExp(testUrlPath, 'gi')).test(tempLink) && regexTest)
         {
 
           if (!uniqueUrlsArr.includes(tempLink) && !urlsArr.includes(tempLink) )
